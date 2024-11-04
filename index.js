@@ -103,15 +103,4 @@ async function runCLI() {
   }
 }
 
-async function testConnection() {
-  try {
-    const res = await pool.query("SELECT NOW();");
-    console.log("Connection Successful:", res.rows[0].now);
-  } catch (err) {
-    console.log("Connection error: ", err);
-  }
-}
-
-testConnection();
-
 runCLI();
