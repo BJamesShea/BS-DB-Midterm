@@ -61,14 +61,35 @@ async function createTable() {
  * @param {string} director Director of the movie
  */
 async function insertMovie(title, year, genre, director) {
-  // TODO: Add code to insert a new movie into the Movies table
+  try {
+    await pool.query(
+      `
+      INSERT INTO Movies (title, release_year, genre, director_name)
+      VALUES ($1, $2, $3, $4)
+    `,
+      [title, year, genre, director]
+    );
+    console.log(`Movie '${title}' added successfully.`);
+  } catch (error) {
+    console.error("Error inserting movie:", error);
+  }
 }
 
 /**
  * Prints all movies in the database to the console
  */
 async function displayMovies() {
-  // TODO: Add code to retrieve and print all movies from the Movies table
+  try {
+    const result = await pool.query("SELECT * FROM Movies");
+    console.log("Movies:");
+    result.rows.forEach((movie) => {
+      console.log(
+        `ID: ${movie.id}, Title: ${movie.title}, Year: ${movie.release_year}, Genre: ${movie.genre}, Director: ${movie.director_name}`
+      );
+    });
+  } catch (error) {
+    console.error("Error displaying movies:", error);
+  }
 }
 
 /**
@@ -78,7 +99,22 @@ async function displayMovies() {
  * @param {string} newEmail New email address of the customer
  */
 async function updateCustomerEmail(customerId, newEmail) {
-  // TODO: Add code to update a customer's email address
+  try {
+    const result = await pool.query(
+      `
+      UPDATE Customers SET email = $1 WHERE id = $2
+    `,
+      [newEmail, customerId]
+    );
+
+    if (result.rowCount === 0) {
+      console.log(`Customer ID ${customerId} not found.`);
+    } else {
+      console.log(`Customer ID ${customerId}'s email updated to ${newEmail}.`);
+    }
+  } catch (error) {
+    console.error("Error updating customer email:", error);
+  }
 }
 
 /**
@@ -87,7 +123,24 @@ async function updateCustomerEmail(customerId, newEmail) {
  * @param {number} customerId ID of the customer to remove
  */
 async function removeCustomer(customerId) {
-  // TODO: Add code to remove a customer and their rental history
+  try {
+    const result = await pool.query(
+      `
+      DELETE FROM Customers WHERE id = $1
+    `,
+      [customerId]
+    );
+
+    if (result.rowCount === 0) {
+      console.log(`Customer ID ${customerId} not found.`);
+    } else {
+      console.log(
+        `Customer ID ${customerId} and their rental history removed.`
+      );
+    }
+  } catch (error) {
+    console.error("Error removing customer:", error);
+  }
 }
 
 /**
