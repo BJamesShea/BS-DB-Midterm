@@ -21,3 +21,9 @@ Rentals Table:
 3NF: No transitive dependencies; rental_date and return_date depend only on rental_id.
 
 Each table meets 3NF standards!
+
+Known bugs and notes;
+
+Not totally sure why it's showing tables created after everything, even if I remove someones email. Maybe I messed up the try catch. Maybe you can explain that to me in the feedback. I really don't know what I did wrong there.
+
+Could've made the list for ' node index.js show 'better. I know you can make a boxed list, but I was short on time and can't remember how exactly to do it.
