@@ -62,3 +62,37 @@ INSERT INTO Rentals (customer_id, movie_id, rental_date, return_date) VALUES
     (4, 3, '2024-08-12', '2024-08-15'),
     (5, 4, '2024-09-12', '2024-09-15'),
     (5, 2, '2024-10-15', '2024-10-18');
+
+
+SELECT Movies.title, Movies.release_year, Movies.genre, Movies.director_name
+FROM Rentals
+JOIN Customers ON Rentals.customer_id = Customers.id
+JOIN Movies ON Rentals.movie_id = Movies.id
+WHERE Customers.email = 'aaronjeans@pants.com';
+
+
+SELECT Customers.first_name, Customers.last_name, Customers.email, Customers.phone
+FROM Rentals
+JOIN Customers ON Rentals.customer_id = Customers.id
+JOIN Movies ON Rentals.movie_id = Movies.id
+WHERE Movies.title = 'The Lighthouse';
+
+SELECT Rentals.rental_date, Rentals.return_date, Customers.first_name, Customers.last_name
+FROM Rentals
+JOIN Movies ON Rentals.movie_id = Movies.id
+JOIN Customers ON Rentals.customer_id = Customers.id
+WHERE Movies.title = 'Midsommar'
+ORDER BY Rentals.rental_date;
+
+
+SELECT Customers.first_name, Customers.last_name, Rentals.rental_date, Movies.title
+FROM Rentals
+JOIN Movies ON Rentals.movie_id = Movies.id
+JOIN Customers ON Rentals.customer_id = Customers.id
+WHERE Movies.director_name = 'Stanley Kubrick'
+ORDER BY Rentals.rental_date;
+
+SELECT Movies.title, Movies.release_year, Movies.genre, Movies.director_name, Rentals.rental_date
+FROM Rentals
+JOIN Movies ON Rentals.movie_id = Movies.id
+WHERE Rentals.return_date > CURRENT_DATE;
