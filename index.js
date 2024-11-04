@@ -4,8 +4,8 @@ const { Pool } = require("pg");
 const pool = new Pool({
   user: "postgres", //This _should_ be your username, as it's the default one Postgres uses
   host: "localhost",
-  database: "your_database_name", //This should be changed to reflect your actual database
-  password: "your_database_password", //This should be changed to reflect the password you used when setting up Postgres
+  database: "movie_rental", //This should be changed to reflect your actual database
+  password: "password", //This should be changed to reflect the password you used when setting up Postgres
   port: 5432,
 });
 
@@ -102,5 +102,16 @@ async function runCLI() {
       break;
   }
 }
+
+async function testConnection() {
+  try {
+    const res = await pool.query("SELECT NOW();");
+    console.log("Connection Successful:", res.rows[0].now);
+  } catch (err) {
+    console.log("Connection error: ", err);
+  }
+}
+
+testConnection();
 
 runCLI();
