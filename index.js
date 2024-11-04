@@ -5,7 +5,7 @@ const pool = new Pool({
   user: "postgres", //This _should_ be your username, as it's the default one Postgres uses
   host: "localhost",
   database: "movie_rental", //This should be changed to reflect your actual database
-  password: "password", //This should be changed to reflect the password you used when setting up Postgres
+  password: "password", //(very secure)
   port: 5432,
 });
 
@@ -13,7 +13,15 @@ const pool = new Pool({
  * Creates the database tables, if they do not already exist.
  */
 async function createTable() {
-  // TODO: Add code to create Movies, Customers, and Rentals tables
+  const createMoviesTable = `
+  CREATE TABLE IF NOT EXISTS Movies (
+  id SERIAL PRIMARY KEY,
+  title VARCHAR(255) NOT NULL,
+  release_year INTEGER NOT NULL,
+  genre VARCHAR(100) NOT NULL,
+  director_name VARCHAR(255) NOT NULL
+    );
+  `;
 }
 
 /**
